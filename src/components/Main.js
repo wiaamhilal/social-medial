@@ -7,7 +7,7 @@ import PostModel from "./PostModel";
 import PostArticles from "./PostArticles";
 import loadingImg from "../images/loader.svg";
 
-const Main = () => {
+const Main = ({showPicModel, setvuePic, vuePic}) => {
   const [ShowModel, setShowModel] = useState();
   const HandleClick = () => {
     setShowModel(!ShowModel);
@@ -75,7 +75,7 @@ const Main = () => {
       ) : (
         ""
       )}
-      <PostArticles />
+      <PostArticles showPicModel={showPicModel} setvuePic={setvuePic} />
     </div>
   );
 };

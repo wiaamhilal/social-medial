@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-const PhotoModel = ({handleModel}) => {
+
+const UserPic = ({setvuePic, userPhoto}) => {
   return (
     <Main>
       <Box>
-        <Close onClick={handleModel}>X</Close>
-        <input type="file" id="file" style={{display: "none"}} />
-        <label htmlFor="file">Chose a photo</label>
+        <Close>
+          <span onClick={() => setvuePic(false)}>X</span>
+        </Close>
         <Pic>
-          <img src="" alt="" />
+          <img src={userPhoto} alt="" />
         </Pic>
-        <Change>Change</Change>
       </Box>
     </Main>
   );
@@ -33,15 +33,27 @@ const Box = styled.div`
   transform: translate(-50%, -50%);
   background-color: #eee;
   border-radius: 5px;
-  max-width: 400px;
+  max-width: 550px;
   width: 100%;
   margin: 5px;
 `;
-const Pic = styled.div``;
-const Change = styled.div``;
 const Close = styled.div`
   text-align: end;
-  padding: 10px 10px 0 0;
-  cursor: pointer;
+  & span {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: darkslategray;
+  }
 `;
-export default PhotoModel``;
+const Pic = styled.div`
+  text-align: center;
+  & img {
+    border-radius: 50%;
+    width: 240px;
+    height: 240px;
+    margin-bottom: 20px;
+  }
+`;
+export default UserPic;

@@ -1,5 +1,5 @@
 import {deleteDoc, doc, updateDoc} from "firebase/firestore";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import ReactPlayer from "react-player";
 import {useSelector} from "react-redux";
 import styled from "styled-components";
@@ -9,17 +9,13 @@ import boldLike from "../images/like-svgrepo-com (3).svg";
 import normalDislike from "../images/dislike-svgrepo-com (1).svg";
 import boldDislike from "../images/dislike-svgrepo-com.svg";
 
-const ArticlesChild = ({item}) => {
+const ArticlesChild = ({item, showPicModel}) => {
   const [like, setlike] = useState(0);
   const [dislike, setdislike] = useState(0);
-  const [islike, setislike] = useState(
-    JSON.parse(localStorage.getItem("islike"))
-  );
-  const [isdislike, setisdislike] = useState(
-    JSON.parse(localStorage.getItem("isdislike"))
-  );
+  const [islike, setislike] = useState(false);
+  const [isdislike, setisdislike] = useState(false);
 
-  const {articles, user} = useSelector((state) => state.user);
+  const {user} = useSelector((state) => state.user);
   const handleLike = (id) => {
     const collRef = doc(db, "articles", id);
     updateDoc(collRef, {
@@ -44,16 +40,16 @@ const ArticlesChild = ({item}) => {
       alert("its not your post to delete it");
     }
   };
-  useEffect(() => {
-    localStorage.setItem("islike", JSON.stringify(islike));
-  }, [islike]);
-  useEffect(() => {
-    localStorage.setItem("isdislike", JSON.stringify(isdislike));
-  }, [isdislike]);
   return (
     <Holder className="">
       <Avatar>
-        {item.actor.image && <img src={item.actor.image} alt="" />}
+        {item.actor.image && (
+          <img
+            src={item.actor.image}
+            alt=""
+            onClick={() => showPicModel(item.actor.image)}
+          />
+        )}
         <div className="perso-info">
           <span>{item.actor.title}</span>
           <span>{item.actor.email}</span>
@@ -131,9 +127,7 @@ const ArticlesChild = ({item}) => {
             ) : (
               <img src={normalDislike} alt="" />
             )}
-            <span className="dis-icon">
-              {/* <FontAwesomeIcon icon={faThumbsDown} /> */}
-            </span>
+            <span className="dis-icon"></span>
             DisLike
           </li>
           <li>
@@ -141,7 +135,6 @@ const ArticlesChild = ({item}) => {
               src="https://static.thenounproject.com/png/1026792-200.png"
               alt=""
             />
-            <span>{/* <FontAwesomeIcon icon={faComment} /> */}</span>
             Comment
           </li>
           <li>
@@ -149,7 +142,6 @@ const ArticlesChild = ({item}) => {
               src="https://static.thenounproject.com/png/3325728-200.png"
               alt=""
             />
-            <span>{/* <FontAwesomeIcon icon={faShare} /> */}</span>
             Share
           </li>
         </ul>

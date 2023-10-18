@@ -6,7 +6,7 @@ import {updateProfile} from "firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {setLoading} from "../redux/UserSlice";
 
-const ChangePic = ({handleModel}) => {
+const ChangePic = ({setPicModel}) => {
   const {user} = useSelector((state) => state.user);
   const [imageURL, setimageURL] = useState("");
   const dispatch = useDispatch();
@@ -33,19 +33,9 @@ const ChangePic = ({handleModel}) => {
               alert(error);
             });
         });
-
-        // let user = auth.currentUser;
-        // user
-        //   .updateProfile({photoURL: imageURL})
-        //   .then(() => {
-        //     console.log(user);
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
       }
     );
-    handleModel();
+    setPicModel(false);
   };
 
   const handleChange = (e) => {
@@ -62,7 +52,7 @@ const ChangePic = ({handleModel}) => {
       <Main>
         <Box>
           <Close>
-            <span onClick={handleModel}>X</span>
+            <span onClick={() => setPicModel(false)}>X</span>
           </Close>
           <input
             type="file"

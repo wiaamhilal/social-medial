@@ -13,7 +13,7 @@ import {saveArticles, setLoading} from "../redux/UserSlice";
 import {useDispatch, useSelector} from "react-redux";
 import ArticlesChild from "./ArticlesChild";
 
-const PostArticles = () => {
+const PostArticles = ({showPicModel, setvuePic}) => {
   const {articles, user} = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -32,7 +32,16 @@ const PostArticles = () => {
     });
   }, []);
   return (
-    <div>{user && articles.map((item) => <ArticlesChild item={item} />)}</div>
+    <div>
+      {user &&
+        articles.map((item) => (
+          <ArticlesChild
+            item={item}
+            showPicModel={showPicModel}
+            setvuePic={setvuePic}
+          />
+        ))}
+    </div>
   );
 };
 

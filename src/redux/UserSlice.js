@@ -9,7 +9,6 @@ export const UserSlice = createSlice({
     user: null,
     articles: [],
     loading: false,
-    btnMemu: false,
   },
   reducers: {
     setUser: (state, action) => {

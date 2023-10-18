@@ -1,24 +1,15 @@
-import {doc, updateDoc} from "firebase/firestore";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {useSelector} from "react-redux";
 import styled from "styled-components";
-import {auth, db, storage} from "../firebase";
-import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
-import {updateProfile} from "firebase/auth";
-import PhotoModel from "./PhotoModel";
 import ChangePic from "./ChangePic";
 
-const LeftSide = () => {
-  const [showModel, setshowModel] = useState();
-  const handleModel = () => {
-    setshowModel(!showModel);
-  };
+const LeftSide = ({PicModel, setPicModel}) => {
   const {user} = useSelector((state) => state.user);
   return (
     <Holder className="col-sm-3 position-relative ms-md-3">
       <div className="cover"></div>
-      {showModel && <ChangePic handleModel={handleModel} />}
-      <Head onClick={handleModel}>
+      {PicModel && <ChangePic setPicModel={setPicModel} />}
+      <Head onClick={() => setPicModel(true)}>
         <img src="https://www.svgrepo.com/show/309379/camera-add.svg" alt="" />
         <div className="wellcome">Wellcome, {user && user.displayName}</div>
         <span>Add a photo</span>

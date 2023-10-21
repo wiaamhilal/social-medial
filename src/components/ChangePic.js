@@ -75,9 +75,13 @@ const ChangePic = ({setPicModel}) => {
             )}
           </Pic>
           <Change>
-            <span className="btn btn-primary m-2" onClick={ChangePhoto}>
+            <button
+              className="btn btn-primary m-2"
+              onClick={ChangePhoto}
+              disabled={!imageURL}
+            >
               Change
-            </span>
+            </button>
           </Change>
         </Box>
       </Main>

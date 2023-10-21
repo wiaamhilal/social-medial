@@ -8,13 +8,14 @@ import normalLike from "../images/like-svgrepo-com (2).svg";
 import boldLike from "../images/like-svgrepo-com (3).svg";
 import normalDislike from "../images/dislike-svgrepo-com (1).svg";
 import boldDislike from "../images/dislike-svgrepo-com.svg";
+import CommentPage from "./CommentPage";
 
 const ArticlesChild = ({item, showPicModel}) => {
   const [like, setlike] = useState(0);
   const [dislike, setdislike] = useState(0);
   const [islike, setislike] = useState(false);
   const [isdislike, setisdislike] = useState(false);
-
+  const [comment, setcomment] = useState(false);
   const {user} = useSelector((state) => state.user);
   const handleLike = (id) => {
     const collRef = doc(db, "articles", id);
@@ -42,6 +43,16 @@ const ArticlesChild = ({item, showPicModel}) => {
   };
   return (
     <Holder className="">
+      {comment && (
+        <CommentPage
+          setcomment={setcomment}
+          id={item.id}
+          comments={item.comments}
+          showPicModel={showPicModel}
+          item={item}
+          userComment={item.userComment}
+        />
+      )}
       <Avatar>
         {item.actor.image && (
           <img
@@ -105,7 +116,7 @@ const ArticlesChild = ({item, showPicModel}) => {
           />
           {item.dislikes || 0}
         </li>
-        <li>{item.comments} comments</li>
+        <li>{item.comments?.length || 0} comments</li>
         <li>0 share</li>
       </ul>
       <Media>
@@ -130,7 +141,7 @@ const ArticlesChild = ({item, showPicModel}) => {
             <span className="dis-icon"></span>
             DisLike
           </li>
-          <li>
+          <li onClick={() => setcomment(true)}>
             <img
               src="https://static.thenounproject.com/png/1026792-200.png"
               alt=""
@@ -238,7 +249,7 @@ const Media = styled.div`
     margin-bottom: 5px;
     color: darkslategray;
     font-size: 14px;
-
+    padding-right: 10px;
     & li {
       cursor: pointer;
       font-weight: bold;
@@ -250,17 +261,6 @@ const Media = styled.div`
       border-radius: 6px;
       padding: 10px;
     }
-    // & .like-li:hover {
-    //   background-color: #3b5998;
-    //   color: #eee;
-    // }
-    // & .dis-li {
-    //   padding: 6px;
-    // }
-    // & .dis-li:hover {
-    //   background-color: #c4302b;
-    //   color: #eee;
-    // }
   }
   & img {
     width: 20px;

@@ -4,11 +4,10 @@ import ReactPlayer from "react-player";
 import {useSelector} from "react-redux";
 import styled from "styled-components";
 import {db} from "../firebase";
-import normalLike from "../images/like-svgrepo-com (2).svg";
-import boldLike from "../images/like-svgrepo-com (3).svg";
-import normalDislike from "../images/dislike-svgrepo-com (1).svg";
-import boldDislike from "../images/dislike-svgrepo-com.svg";
+
 import CommentPage from "./CommentPage";
+import Like from "./Like";
+import Dislike from "./Dislike";
 
 const ArticlesChild = ({item, showPicModel}) => {
   const [like, setlike] = useState(0);
@@ -50,7 +49,6 @@ const ArticlesChild = ({item, showPicModel}) => {
           comments={item.comments}
           showPicModel={showPicModel}
           item={item}
-          userComment={item.userComment}
         />
       )}
       <Avatar>
@@ -106,7 +104,7 @@ const ArticlesChild = ({item, showPicModel}) => {
             src="https://e7.pngegg.com/pngimages/747/627/png-clipart-emoticon-like-button-smiley-facebook-social-media-like-us-on-facebook-facebook-like-logo-miscellaneous-blue.png"
             alt=""
           />
-          {item.likes || 0}
+          {item.likes.length || 0}
         </li>
         <li>
           <img
@@ -114,33 +112,15 @@ const ArticlesChild = ({item, showPicModel}) => {
             src="https://uxwing.com/wp-content/themes/uxwing/download/hand-gestures/dislike-button-icon.png"
             alt=""
           />
-          {item.dislikes || 0}
+          {item.dislikes.length || 0}
         </li>
         <li>{item.comments?.length || 0} comments</li>
         <li>0 share</li>
       </ul>
       <Media>
         <ul>
-          <li onClick={() => handleLike(item.id)} className="like-li">
-            <span className="like-icon">
-              {islike ? (
-                <img src={boldLike} alt="" />
-              ) : (
-                <img src={normalLike} alt="" />
-              )}
-            </span>
-            Like
-          </li>
-
-          <li className="dis-li" onClick={() => handleDislike(item.id)}>
-            {isdislike ? (
-              <img src={boldDislike} alt="" />
-            ) : (
-              <img src={normalDislike} alt="" />
-            )}
-            <span className="dis-icon"></span>
-            DisLike
-          </li>
+          <Like docId={item.id} likes={item.likes} />
+          <Dislike docId={item.id} dislikes={item.dislikes} />
           <li onClick={() => setcomment(true)}>
             <img
               src="https://static.thenounproject.com/png/1026792-200.png"
@@ -249,7 +229,7 @@ const Media = styled.div`
     margin-bottom: 5px;
     color: darkslategray;
     font-size: 14px;
-    padding-right: 10px;
+    padding-right: 5px;
     & li {
       cursor: pointer;
       font-weight: bold;

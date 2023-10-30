@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {auth, db} from "../firebase";
 import {useSelector} from "react-redux";
 
-const CommentPage = ({setcomment, id, comments, showPicModel, item}) => {
+const CommentPage = ({setcomment, id, comments, showPicModel}) => {
   const {user} = useSelector((state) => state.user);
 
   const [commentFeild, setcommetFeild] = useState();

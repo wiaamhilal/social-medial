@@ -11,14 +11,14 @@ const RightSide = () => {
       <Body>
         <span className="one">#</span>{" "}
         <div>
-          <span className="tow">#linkden</span>
+          <span className="tow">#Weaam</span>
           <span className="three">Follow</span>
         </div>
       </Body>
       <Body>
         <span className="one">#</span>{" "}
         <div>
-          <span className="tow">#linkden</span>
+          <span className="tow">#Weaam</span>
           <span className="three">Follow</span>
         </div>
       </Body>
